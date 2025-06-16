@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaEye, FaRegBookmark, FaShareAlt, FaStar } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { AuthContext } from "../provider/AuthProvider";
 

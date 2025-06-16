@@ -8,10 +8,11 @@ const Register = () => {
     const { createNewUser, setUser, updateUserProfile } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    // Controlled input states
+    // Controlled inputs
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [photoURL, setPhotoURL] = useState("");
 
     // Validation error states
     const [passwordError, setPasswordError] = useState("");
@@ -47,7 +48,7 @@ const Register = () => {
         e.preventDefault();
 
         if (!name || !email || !password) {
-            toast.warn("Please fill in all fields.");
+            toast.warn("Please fill in all required fields.");
             return;
         }
         if (nameError) {
@@ -61,12 +62,13 @@ const Register = () => {
 
         try {
             const user = await createNewUser(email, password);
-            await updateUserProfile({ displayName: name });
 
-            // Send verification email once here only
+            await updateUserProfile({ displayName: name, photoURL: photoURL || null });
+
+            setUser({ ...user, displayName: name, photoURL: photoURL || null });
+
             await sendEmailVerification(user);
 
-            setUser({ ...user, displayName: name });
             toast.success(`Registered successfully! Verification email sent to ${email}`, { icon: "✉️" });
             navigate("/auth/login");
         } catch (error) {
@@ -122,6 +124,17 @@ const Register = () => {
                         required
                     />
                     {passwordError && <p className="text-red-600 text-sm mt-1">{passwordError}</p>}
+                </div>
+                <div>
+                    <label className="block text-sm font-medium text-gray-600 mb-1">Photo URL (optional)</label>
+                    <input
+                        name="photoURL"
+                        type="text"
+                        placeholder="Enter your photo URL"
+                        className="input input-bordered w-full"
+                        value={photoURL}
+                        onChange={(e) => setPhotoURL(e.target.value)}
+                    />
                 </div>
                 <button
                     type="submit"

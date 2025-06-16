@@ -25,7 +25,6 @@ createRoot(document.getElementById('root')).render(
           theme="light"
           toastClassName="bg-white text-gray-800 border-l-4 border-black shadow-lg font-display"
         />
-
       </>
     </AuthProvider>
   </StrictMode>

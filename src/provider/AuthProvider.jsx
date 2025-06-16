@@ -15,8 +15,8 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [hasLoggedIn, setHasLoggedIn] = useState(false);
 
-    // createNewUser only creates user, no email verification here
     const createNewUser = (email, password) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password).then(({ user }) => {
@@ -26,12 +26,21 @@ const AuthProvider = ({ children }) => {
 
     const userLogin = (email, password) => {
         setLoading(true);
-        return signInWithEmailAndPassword(auth, email, password);
+        return signInWithEmailAndPassword(auth, email, password).then((res) => {
+            setHasLoggedIn(true);
+            setUser(res.user);
+            setLoading(false);
+            return res;
+        });
     };
 
     const logOut = () => {
         setLoading(true);
-        return signOut(auth);
+        setHasLoggedIn(false);
+        return signOut(auth).then(() => {
+            setUser(null);
+            setLoading(false);
+        });
     };
 
     const updateUserProfile = (profile) => {
@@ -41,11 +50,15 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
+            if (hasLoggedIn) {
+                setUser(currentUser);
+            } else {
+                setUser(null);
+            }
             setLoading(false);
         });
         return () => unsubscribe();
-    }, []);
+    }, [hasLoggedIn]);
 
     const authInfo = {
         user,
