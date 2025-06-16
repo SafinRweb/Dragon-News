@@ -1,3 +1,4 @@
+// Updated MainLayout.jsx with responsive design
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 import LatestNews from "../components/LatestNews";
@@ -25,14 +26,14 @@ const MainLayout = () => {
             <nav className="w-11/12 mx-auto">
                 <Navbar />
             </nav>
-            <main className="w-11/12 mx-auto gap-5 pt-5 grid md:grid-cols-12">
-                <aside className="left col-span-3">
+            <main className="w-11/12 mx-auto pt-5 grid gap-5 grid-cols-1 md:grid-cols-4 lg:grid-cols-12">
+                <aside className="md:col-span-1 lg:col-span-3 order-2 md:order-1">
                     <LeftNavbar />
                 </aside>
-                <section className="col-span-6">
+                <section className="md:col-span-2 lg:col-span-6 order-1 md:order-2">
                     <Outlet />
                 </section>
-                <aside className="right col-span-3">
+                <aside className="md:col-span-1 lg:col-span-3 order-3">
                     <RightNavbar />
                 </aside>
             </main>

@@ -22,8 +22,8 @@ const Navbar = () => {
     const isUserLoggedInAndVerified = user && user.emailVerified;
 
     return (
-        <div className="grid grid-cols-3 items-center py-2 w-full">
-            <div className="pl-4 font-semibold text-lg text-gray-700">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center py-2 w-full text-center md:text-left">
+            <div className="font-semibold text-lg text-gray-700">
                 {isUserLoggedInAndVerified
                     ? user.displayName
                         ? `Hello, ${user.displayName}`
@@ -31,13 +31,13 @@ const Navbar = () => {
                     : ""}
             </div>
 
-            <div className="flex justify-center space-x-5 text-lg font-medium">
+            <div className="flex justify-center flex-wrap gap-4 text-lg font-medium">
                 <NavLink to="/">Home</NavLink>
                 <NavLink to="/career">Career</NavLink>
                 <NavLink to="/about">About</NavLink>
             </div>
 
-            <div className="flex justify-end pr-4">
+            <div className="flex justify-center md:justify-end">
                 <div className="flex items-center gap-2">
                     <img
                         src={isUserLoggedInAndVerified && user.photoURL ? user.photoURL : userIcon}
@@ -45,11 +45,11 @@ const Navbar = () => {
                         className="w-10 h-10 rounded-full object-cover"
                     />
                     {isUserLoggedInAndVerified ? (
-                        <button onClick={handleLogout} className="btn btn-neutral rounded-none">
+                        <button onClick={handleLogout} className="btn btn-neutral btn-sm rounded-none">
                             LogOut
                         </button>
                     ) : (
-                        <Link to="/auth/login" className="btn btn-neutral rounded-none">
+                        <Link to="/auth/login" className="btn btn-neutral btn-sm rounded-none">
                             Login
                         </Link>
                     )}
