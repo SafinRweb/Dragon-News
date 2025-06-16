@@ -72,7 +72,7 @@ const Register = () => {
             toast.success(`Registered successfully! Verification email sent to ${email}`, { icon: "✉️" });
             navigate("/auth/login");
         } catch (error) {
-            console.error("Registration error:", error);
+            // console.error("Registration error:", error);
             let msg = "Registration failed.";
             if (error.code === "auth/email-already-in-use") msg = "Email is already in use.";
             else if (error.code === "auth/invalid-email") msg = "Invalid email format.";
