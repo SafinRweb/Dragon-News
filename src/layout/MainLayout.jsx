@@ -4,8 +4,16 @@ import LatestNews from "../components/LatestNews";
 import Navbar from "../components/Navbar";
 import LeftNavbar from "../components/layout-component/LeftNavbar";
 import RightNavbar from "../components/layout-component/RightNavbar";
+import { useNavigation } from "react-router-dom";
+import Loading from "../components/Loading";
 
 const MainLayout = () => {
+    const navigation = useNavigation();
+    const isLoading = navigation.state === "loading";
+    if (isLoading) {
+        return <Loading />;
+    }
+
     return (
         <div className="font-display">
             <header>
