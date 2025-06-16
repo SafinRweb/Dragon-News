@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 import CategoryNews from "../pages/CategoryNews";
 import AuthLayout from "../layout/AuthLayout";
 import Login from "../pages/Login";
-import Register from "../pages/Registration";
+import Register from "../pages/Register";
 
 const router = createBrowserRouter([
   {

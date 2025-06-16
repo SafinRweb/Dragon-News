@@ -1,8 +1,33 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../provider/AuthProvider";
 
 const Login = () => {
+    const {userLogin, setUser}= useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Get form Data
+        const form = new FormData(e.target);
+        const email = form.get("email");
+        const password = form.get("password");
+
+        userLogin(email, password)
+            .then((result) => {
+                const user = result.user;
+                setUser(user);
+                e.target.reset();
+                navigate("/");
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+            });
+    }
     return (
-        <div className="w-full max-w-xl mx-auto bg-white p-10 rounded-2xl shadow-lg border border-gray-200">
+        <div onSubmit={handleSubmit} className="w-full max-w-xl mx-auto bg-white p-10 rounded-2xl shadow-lg border border-gray-200">
             <h2 className="text-3xl font-bold text-center text-gray-800">
                 Login to Your Account
             </h2>
@@ -16,6 +41,7 @@ const Login = () => {
                         Email
                     </label>
                     <input
+                        name="email"
                         type="email"
                         placeholder="Enter your email"
                         className="input input-bordered w-full"
@@ -27,6 +53,7 @@ const Login = () => {
                         Password
                     </label>
                     <input
+                        name="password"
                         type="password"
                         placeholder="Enter your password"
                         className="input input-bordered w-full"

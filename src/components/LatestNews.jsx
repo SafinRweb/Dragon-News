@@ -9,7 +9,6 @@ const LatestNews = () => {
                 Latest
             </p>
             <Marquee 
-            speed={90}
             pauseOnHover={true} className="space-x-10">
                 <Link to="/news">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, velit?
