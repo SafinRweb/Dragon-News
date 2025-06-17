@@ -5,7 +5,7 @@ import Header from "../components/Header";
 
 const Career = () => {
     return (
-        <div className="w-11/12 mx-auto font-display">
+        <div className="w-11/12 mx-auto font-display mb-3">
             <header className="py-1">
                 <div className="w-[95%] md:w-11/12 mx-auto">
                     <Header />
