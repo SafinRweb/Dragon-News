@@ -1,4 +1,4 @@
-import { useLoaderData } from 'react-router';
+import { useLoaderData } from 'react-router-dom';
 import NewsCard from '../components/NewsCard';
 import { toast } from 'react-toastify';
 import { useEffect } from 'react';
@@ -7,9 +7,11 @@ const CategoryNews = () => {
     const { data: news, error } = useLoaderData();
 
     useEffect(() => {
+        toast.dismiss();
+
         if (error) {
             toast.error("Failed to load news. Please try again later.");
-        } else if (news && news.length === 0) {
+        } else if (Array.isArray(news) && news.length === 0) {
             toast.info("No news articles available in this category.");
         }
     }, [error, news]);
